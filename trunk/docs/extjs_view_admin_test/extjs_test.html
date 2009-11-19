@@ -1,0 +1,337 @@
+<html>
+<head>
+  <title>Complex Layout</title>
+    <link rel="stylesheet" type="text/css" href="extjs_test_pliki/ext-all.css" />
+    
+    <style type="text/css">
+    html, body {
+        font:normal 12px verdana;
+        margin:0;
+        padding:0;
+        border:0 none;
+        overflow:hidden;
+        height:100%;
+    }
+    p {
+        margin:5px;
+    }
+    .settings {
+        background-image:url(extjs_test_pliki/folder_wrench.png);
+    }
+    .nav {
+        background-image:url(extjs_test_pliki/folder_go.png);
+    }
+    </style>
+
+    <script src="extjs_test_pliki/urchin.js" type="text/javascript"> </script><script type="text/javascript">_uacct = "UA-1396058-1";urchinTracker();</script>
+    <!-- LIBS -->
+    <script type="text/javascript" src="extjs_test_pliki/ext-base.js"></script>
+    <!-- ENDLIBS -->
+    <script type="text/javascript" src="extjs_test_pliki/ext-all.js"></script>
+    <!-- DEBUG CONSOLE -->
+<!--
+    <script type="text/javascript" src="extjs_test_pliki/ext-all-debug.js"></script>
+-->
+
+    <!-- EXAMPLES -->
+    <script type="text/javascript" src="extjs_test_pliki/examples.js"></script>
+
+
+    <script type="text/javascript">
+    Ext.onReady(function(){
+    
+        // NOTE: This is an example showing simple state management. During development,
+        // it is generally best to disable state management as dynamically-generated ids
+        // can change across page loads, leading to unpredictable results.  The developer
+        // should ensure that stable state ids are set for stateful components in real apps.
+        Ext.state.Manager.setProvider(new Ext.state.CookieProvider());
+        
+        var viewport = new Ext.Viewport({
+            layout: 'border',
+            items: [
+            // create instance immediately
+            new Ext.BoxComponent({
+                region: 'north',
+                height: 22, // give north and south regions a height
+                autoEl: {
+                    tag: 'div',
+                    html:'<p>Open Web SCADA - administrator panel</p>'
+                }
+            }), {
+                // lazily created panel (xtype:'panel' is default)
+                region: 'south',
+                contentEl: 'south',
+                split: true,
+                height: 100,
+                minSize: 100,
+                maxSize: 200,
+                collapsible: true,
+                title: 'Messages logger panel',
+                margins: '0 0 0 0'
+            }, {
+                region: 'east',
+                title: 'Station properties',
+                collapsible: true,
+                split: true,
+                width: 225, // give east and west regions a width
+                minSize: 175,
+                maxSize: 400,
+                margins: '0 5 0 0',
+                layout: 'fit', // specify layout manager for items
+                items:            // this TabPanel is wrapped by another Panel so the title will be applied
+                new Ext.TabPanel({
+                    border: false, // already wrapped so don't add another border
+                    activeTab: 1, // second tab initially active
+                    tabPosition: 'bottom',
+                    items: [{
+                        html: '<p>Demo station with visual interface inpired by <a href="http://extjs.com">ExtJs</a>.</p>',
+                        title: 'Description',
+                        autoScroll: true
+                    }, new Ext.grid.PropertyGrid({
+                        title: 'Project Property',
+                        closable: true,
+                        source: {
+                            "(name)": "Demo station",
+                            "productionState": false,
+                            "productionQuality": false,
+                            "created": new Date(Date.parse('19/11/2009')),
+                            "tested": false,
+                            "deploy": new Date(Date.parse('01/15/2010')),
+                            "version": 0.1,
+                            "devices": 12
+                        }
+                    })]
+                })
+            }, {
+                region: 'west',
+                id: 'west-panel', // see Ext.getCmp() below
+                title: 'Station controls',
+                split: true,
+                width: 200,
+                minSize: 175,
+                maxSize: 400,
+                collapsible: true,
+                margins: '0 0 0 5',
+                layout: {
+                    type: 'accordion',
+                    animate: true
+                },
+                items: 
+                [{
+                    contentEl: 'west',
+                    title: 'Station projects',
+                    border: false,
+                    items:
+/* with AJAX */
+/*
+new Ext.tree.TreePanel({
+                                renderTo: 'controls-tree-div',
+                                useArrows: true,
+                                autoScroll: true,
+                                animate: true,
+                                enableDD: true,
+                                containerScroll: true,
+                                border: false,
+                                // auto create TreeLoader
+
+                                dataUrl: 'OpenWebScada_getNodes.php',
+
+                                root: {
+                                    nodeType: 'async',
+                                    text: 'Demo station',
+                                    draggable: false,
+                                    id: 'station'
+//                                    ,expanded : true
+                                }
+                    })
+*/
+
+        new Ext.tree.TreePanel({
+//         renderTo: 'controls-tree-div',
+         useArrows: true,
+
+        // preloads 1st level children
+        loader:new Ext.tree.TreeLoader({preloadChildren:true}),
+
+        // enable DD
+        enableDD:true
+        ,id:'tree'
+        ,region:'west'
+        ,title:'Station demo'
+        ,layout:'fit'
+        ,width:300
+        ,split:true
+        ,collapsible:true
+        ,autoScroll:true,
+
+         // root with some static demo nodes
+         root:{
+            text:'Demo station',
+            id:'root',
+            expanded:true,
+            children:[{
+                 text:'Security'
+                 ,children:[{
+                     text:'Back-end users'
+                     ,leaf:true},{
+                     text:'Clients'
+                     ,leaf:true}]
+                 },{
+                 text:'Transports'
+                 ,children:[{
+                        text:'OPC'
+                        ,leaf:true
+                     },{
+                        text:'TCP/IP'
+                        ,leaf:true
+                     }]
+                 },{
+                 text:'Transport protocols'
+                 ,children:[{
+                        text:'HTTP'
+                        ,leaf:true
+                     },{
+                        text:'OpenSCADA'
+                        ,leaf:true
+                     },{
+                        text:'OPC'
+                        ,leaf:true
+                     },{
+                        text:'MODBUS-ASCII'
+                        ,leaf:true
+                     },{
+                        text:'MODBUS-RTU'
+                        ,leaf:true
+                     }]
+                 }
+                ,{
+                 text:'Data acquisition'
+                 ,children:[{
+                        text:'Events'
+                        ,leaf:true
+                     },{
+                        text:'All registers'
+                        ,leaf:true
+                     },{
+                        text:'Selected register'
+                        ,leaf:true
+                     },{
+                        text:'Logic'
+                        ,leaf:true
+                     },{
+                        text:'Rules'
+                        ,leaf:true
+                     },{
+                        text:'DAQs'
+                        ,leaf:true
+                     }]
+                 }
+                ,{
+                 text:'Archives'
+                 ,children:[{
+                        text:'Days'
+                        ,leaf:true
+                     },{
+                        text:'Months'
+                        ,leaf:true
+                     },{
+                        text:'Years'
+                        ,leaf:true
+                     },{
+                        text:'Custom'
+                        ,leaf:true
+                     }]
+                 }
+                ,{
+                 text:'Specials'
+                 ,children:[{
+                        text:'Data banks'
+                        ,leaf:true
+                     }]
+                 }
+                ,{
+                 text:'User interfaces'
+                 ,children:[{
+                        text:'Web ExtJs GUI'
+                        ,leaf:true
+                     },{
+                        text:'Controls'
+                        ,leaf:true
+                     },{
+                        text:'Icons'
+                        ,leaf:true
+                     },{
+                        text:'Brix'
+                        ,leaf:true
+                     }]
+                 }
+
+                ,{
+                    text:'Modules scheduler'
+                    ,leaf:true
+                }]
+        }
+
+        }),
+                    iconCls: 'nav' // see the HEAD section for style used
+                }, {
+                    title: 'Settings',
+                    html: '<p>Some settings in here.</p>',
+                    border: false,
+                    iconCls: 'settings'
+                }]
+
+            },
+            // in this instance the TabPanel is not wrapped by another panel
+            // since no title is needed, this Panel is added directly
+            // as a Container
+            new Ext.TabPanel({
+                region: 'center', // a center region is ALWAYS required for border layout
+                deferredRender: false,
+                activeTab: 0,     // first tab initially active
+                items: [{
+                    contentEl: 'center2',
+                    title: 'Center Panel',
+                    closable: false,
+                    autoScroll: true
+                },{
+                    contentEl: 'center1',
+                    title: 'Additional panel',
+                    closable: true,
+                    autoScroll: true
+                }]
+            })]
+        });
+        // get a reference to the HTML element with id "hideit" and add a click listener to it 
+        Ext.get("hideit").on('click', function(){
+            // get a reference to the Panel that was created with id = 'west-panel' 
+            var w = Ext.getCmp('west-panel');
+            // expand or collapse that Panel based on its collapsed property state
+            w.collapsed ? w.expand() : w.collapse();
+        });
+    });
+    </script>
+</head>
+<body>
+    <!-- use class="x-hide-display" to prevent a brief flicker of the content -->
+    <div id="west" class="x-hide-display">
+        <div id="controls-tree-div"></div>
+        <p>Place for project tree.</p>
+    </div>
+    <div id="center2" class="x-hide-display">
+        <p>Dedicated information data about modules.</p>
+        <hr>
+        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Sed metus nibh, sodales a, porta at, vulputate eget, dui. Pellentesque ut nisl. Maecenas tortor turpis, interdum non, sodales non, iaculis ac, lacus. Vestibulum auctor, tortor quis iaculis malesuada, libero lectus bibendum purus, sit amet tincidunt quam turpis vel lacus. In pellentesque nisl non sem. Suspendisse nunc sem, pretium eget, cursus a, fringilla vel, urna. Aliquam commodo ullamcorper erat. Nullam vel justo in neque porttitor laoreet. Aenean lacus dui, consequat eu, adipiscing eget, nonummy non, nisi. Morbi nunc est, dignissim non, ornare sed, luctus eu, massa. Vivamus eget quam. Vivamus tincidunt diam nec urna. Curabitur velit. Quisque dolor magna, ornare sed, elementum porta, luctus in, leo.</p>
+.</p>
+    </div>
+    <div id="center1" class="x-hide-display">
+        <p><b>Additional panel with closing possibility.</b></p>
+        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Sed metus nibh, sodales a, porta at, vulputate eget, dui. Pellentesque ut nisl. Maecenas tortor turpis, interdum non, sodales non, iaculis ac, lacus. Vestibulum auctor, tortor quis iaculis malesuada, libero lectus bibendum purus, sit amet tincidunt quam turpis vel lacus. In pellentesque nisl non sem. Suspendisse nunc sem, pretium eget, cursus a, fringilla vel, urna. Aliquam commodo ullamcorper erat. Nullam vel justo in neque porttitor laoreet. Aenean lacus dui, consequat eu, adipiscing eget, nonummy non, nisi. Morbi nunc est, dignissim non, ornare sed, luctus eu, massa. Vivamus eget quam. Vivamus tincidunt diam nec urna. Curabitur velit. Quisque dolor magna, ornare sed, elementum porta, luctus in, leo.</p>
+    </div>
+    <div id="props-panel" class="x-hide-display" style="width:200px;height:200px;overflow:hidden;">
+    </div>
+    <div id="south" class="x-hide-display">
+        <p>generally for informational stuff, also could be for status bar, alerts or events logs</p>
+    </div>
+</body>
+</html>
