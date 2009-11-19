@@ -1,0 +1,9 @@
+#labels dui,extjs,visualization,Phase-Requirements
+= Introduction =
+
+Page for GUIs, visualization interfaces and other UI inspirations.
+
+
+= Details =
+
+For example checkout project from SVN repository and open file __docs/extjs_view_admin_test/extjs_test.html__ in web browser.
