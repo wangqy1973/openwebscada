@@ -8,6 +8,8 @@ Wiki page for brainstorming and links inpiration and/or interesting.
 
 Scada systems solutions:
 
+http://www.svgopen.org/2005/papers/MakingControlPanelsInSVGFormat/index.html
+
 http://oscada.org/
 
 http://wiki.oscada.org/HomePageEn/Doc/ModBus
