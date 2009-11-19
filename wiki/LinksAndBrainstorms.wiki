@@ -1,0 +1,17 @@
+#labels links,webpages,inpitations,Phase-Design
+= Introduction =
+
+Wiki page for brainstorming and links inpiration and/or interesting.
+
+
+= Details =
+
+http://oscada.org/
+
+http://wiki.oscada.org/HomePageEn/Doc/ModBus
+
+http://sourceforge.net/projects/scada-tgz/
+
+http://www.webscada.com/SCADA/Home.aspx
+
+http://www.opcsystems.com/opc_systems_net_intro_video.htm
