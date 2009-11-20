@@ -33,3 +33,8 @@ http://www.extjs.com/deploy/dev/examples/chart/reload-chart.html
 http://www.extjs.com/deploy/dev/examples/portal/portal.html
 
 http://www.extjs.com/deploy/dev/examples/tree/xml-tree-loader.html
+
+
+Papers:
+
+http://www.google.pl/url?sa=t&source=web&ct=res&cd=8&ved=0CDsQFjAH&url=http%3A%2F%2Fwww.i-sup.org%2Fpresentations%2FConference_3%2FMercurio_A.pdf&rct=j&q=open+web+scada&ei=AucFS--kDIz-mQOT6-C5DQ&usg=AFQjCNGSvGa_8bhlVpIrrCxIEnLrChThtQ
