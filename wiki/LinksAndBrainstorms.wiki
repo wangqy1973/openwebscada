@@ -27,3 +27,9 @@ http://www.extjs.com/deploy/dev/examples/layout/complex.html
 http://examples.extjs.eu/
 
 http://www.extjs.com/learn/Main_Page
+
+http://www.extjs.com/deploy/dev/examples/chart/reload-chart.html
+
+http://www.extjs.com/deploy/dev/examples/portal/portal.html
+
+http://www.extjs.com/deploy/dev/examples/tree/xml-tree-loader.html
