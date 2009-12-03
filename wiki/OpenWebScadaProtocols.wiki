@@ -16,8 +16,17 @@ Some __Open Web Scada__ protocols:
   * EtherCAT
   * TwinCAT
   * PROFINET
-  * AS-Interface
-
+  * Actuator sensor interface (AS-I)
+  * Factory Information BUS (FIB)
+  * WorldFip
+  * Interbus-S
+  * DeviceNET
+  * Seriplex
+  * HART
+  * Allan Bradley Data Highway (Plus)
+  * HDLC
+  * SDLC
+  * XON/OFF
 
 
 == Materials ==
