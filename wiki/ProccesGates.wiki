@@ -1,0 +1,19 @@
+#labels scada,proccess,gates,gate,Phase-Requirements
+= Introduction =
+
+In all SCADA applications we have GATES subject for definition of dynamic data.
+In this project GATES are all dynamics data too.
+
+
+= Details =
+
+Gates examples:
+  * input value from measurement device
+  * arythmethic calculations with mixed gates (inputs values, consts, etc)
+  * consts values for proccess calculation
+
+Gates names example:
+  * G_INP_01_TEST = (dynamic data form proccess)
+  * G_CONST_01_TMP_VALUE = 1.5
+  * G_OUT_01_TEST_WITH_CONST_MLTPL = ( ( G_INP_01_TEST * G_CONST_01_TMP_VALUE ) / 2 ) + 0.4
+  * G_OUT_02_TEST_AVG_FOR_TIME_IN_SECONDS = AVG( G_INP_01_TEST,  G_CONST_01_TMP_VALUE )
